@@ -46,10 +46,15 @@ then
     let count_for_loop+=1
     done
 else
+    if [ $blocksize == "GB" ];then
+	count=$[1024*${size}]
+	blocksize="MB"
+    else
+	count=$size
+    fi
     while [ $count_for_loop -lt $numbers ];do
-    count=$size
-    dd if=/dev/zero of=${dir}/${count_for_loop}_${size}_${blocksize} bs=1${blocksize} count=$count
-    let count_for_loop+=1
+	dd if=/dev/zero of=${dir}/${count_for_loop}_${size}_${blocksize} bs=1${blocksize} count=$count
+	let count_for_loop+=1
     done
 fi
 exit 0
