@@ -18,11 +18,12 @@ count=1
 random=1
 dir=""
 count_for_loop=0
+unit="kb"
 setBlockSize(){
     case $1 in 
-	"kb" | "Kb" | "KB" | "kB" )  blocksize="KB";;
-	"Mb" | "mb" | "MB" | "mB" )  blocksize="MB";;
-	"Gb" | "GB" | "gb" | "gB" )  blocksize="GB";;
+	"kb" | "Kb" | "KB" | "kB" )  blocksize="KB";unit="KB";;
+	"Mb" | "mb" | "MB" | "mB" )  blocksize="MB";unit="MB";;
+	"Gb" | "GB" | "gb" | "gB" )  blocksize="GB";unit="GB";;
     esac
 }
 # the colon represent the option need parameter
@@ -53,7 +54,7 @@ else
 	count=$size
     fi
     while [ $count_for_loop -lt $numbers ];do
-	dd if=/dev/zero of=${dir}/${count_for_loop}_${size}_${blocksize} bs=1${blocksize} count=$count
+	dd if=/dev/zero of=${dir}/${count_for_loop}_${size}_${unit} bs=1${blocksize} count=$count
 	let count_for_loop+=1
     done
 fi
